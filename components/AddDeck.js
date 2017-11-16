@@ -1,11 +1,19 @@
 import React, { Component } from 'react'
-import { KeyboardAvoidingView, Text, TextInput, StyleSheet, TouchableOpacity, Keyboard, View, AsyncStorage } from 'react-native'
-const DECKS_STORAGE_KEY = 'MobileFlashcards:decks'
+import { KeyboardAvoidingView, Text, TextInput, StyleSheet, TouchableOpacity, Keyboard, View } from 'react-native'
+import { getDecks, saveDeckTitle } from '../utils/store'
 
 class AddDeck extends Component {
 
     state = {
         deckTitle: ''
+    }
+
+    handleSubmit = () => {
+        const { deckTitle } = this.state
+        saveDeckTitle(deckTitle)
+        this.setState({
+            deckTitle: ''
+        })
     }
 
     render() {
@@ -18,40 +26,12 @@ class AddDeck extends Component {
                     maxLength={25}
                     onChangeText={(deckTitle) => this.setState({ deckTitle })} 
                     value={this.state.deckTitle}/>
-                <TouchableOpacity style={styles.submitBtn} onPress={() => addDeck(this.state.deckTitle)}>
+                <TouchableOpacity style={styles.submitBtn} onPress={this.handleSubmit}>
                     <Text style={{fontSize: 20, textAlign: 'center'}}>Submit</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.submitBtn} onPress={() => getDecks()}>
-                    <Text style={{fontSize: 20, textAlign: 'center'}}>Request</Text>
                 </TouchableOpacity>
             </KeyboardAvoidingView>
         )
     }
-}
-
-async function addDeck(deckTitle) {
-    try {
-        await AsyncStorage.setItem(DECKS_STORAGE_KEY, JSON.stringify({
-            [deckTitle]: {
-                title: deckTitle,
-                questions: []
-            }
-        }));
-    } catch (error) {
-        console.log(error)
-    }
-}
-
-async function getDecks() {
-    try {
-        const value = await AsyncStorage.getItem(DECKS_STORAGE_KEY);
-        if (value !== null){
-          // We have data!!
-          console.log(value);
-        }
-      } catch (error) {
-        console.log(error)
-      }
 }
 
 const styles = StyleSheet.create({
