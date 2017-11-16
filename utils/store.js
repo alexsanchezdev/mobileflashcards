@@ -22,9 +22,7 @@ export async function getDecks() {
     try {
         const value = await AsyncStorage.getItem(DECKS_STORAGE_KEY);
         if (value !== null){
-          // We have data!!
-          const json = JSON.parse(value)
-          console.log(json)
+          return JSON.parse(value)
         }
       } catch (error) {
         return console.log(error)
