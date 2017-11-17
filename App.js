@@ -5,6 +5,9 @@ import AddDeck from './components/AddDeck'
 import DesksList from './components/DesksList'
 import { Constants } from 'expo'
 import { Ionicons } from '@expo/vector-icons'
+import { createStore } from 'redux'
+import { Provider } from 'react-redux'
+import reducer from './reducers'
 
 const Tabs = TabNavigator({
   Decks: {
@@ -39,10 +42,12 @@ const FlashStatusBar = ({backgroundColor, ...props}) => {
 export default class App extends React.Component {
   render() {
     return (
+      <Provider store={createStore(reducer)}>
       <View style={{flex: 1}}>
         <FlashStatusBar backgroundColor="#E91E63" barStyle='light-content'/>
         <Tabs />
       </View>
+      </Provider>
     );
   }
 }

@@ -1,18 +1,15 @@
 import React, { Component } from 'react'
 import { View, Text, FlatList, StyleSheet } from 'react-native'
+import { connect } from 'react-redux'
 import { getDecks } from '../utils/store'
+import { retrieveDecks } from '../actions'
 
 class DesksList extends Component {
 
-    state = {
-        data: undefined
-    }
-
     componentDidMount() {
-        getDecks().then( result => {
-            const data = Object.keys(result).map( deck => result[deck])
-            this.setState({ data })
-        }).catch(err => console.log(err))
+        getDecks().then((result) => {
+            this.props.dispatch(retrieveDecks(result))
+        })
     }
 
     renderSeparator = () => {
@@ -28,12 +25,12 @@ class DesksList extends Component {
     }
 
     render() {
-        const { data } = this.state
+        const { decks } = this.props
         return (
             <View style={styles.container}>
-                { data 
+                { decks 
                 ? <FlatList
-                    data={data} 
+                    data={decks} 
                     renderItem={({item}) => <ListView {...item}/>}  
                     keyExtractor={item => item.title}
                     ItemSeparatorComponent={this.renderSeparator}/>
@@ -66,4 +63,18 @@ const styles = StyleSheet.create({
     }
 })
 
-export default DesksList
+const mapStateToProps = (state, props) => {
+
+    console.log(state)
+    if (state) {
+        const data = Object.keys(state).map( deck => state[deck])
+        return {
+            decks: data
+        }
+    }
+
+    return {
+    }
+}
+
+export default connect(mapStateToProps)(DesksList)

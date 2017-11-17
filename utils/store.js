@@ -1,30 +1,19 @@
 import { AsyncStorage, Alert } from 'react-native'
 const DECKS_STORAGE_KEY = 'MobileFlashcards:decks'
 
-export async function saveDeckTitle(deckTitle) {
-    console.log('Called add decks')
-    try {
-        await AsyncStorage.mergeItem(DECKS_STORAGE_KEY, JSON.stringify({
-            [deckTitle]: {
-                title: deckTitle,
-                questions: []
-            }
-        })).then(() => {
-            Alert.alert('Completed', 'Deck was correctly saved.')
-        })
-    } catch (error) {
-        console.log(error)
-        Alert.alert('Error', 'There was an error saving your deck.')
-    }
+export function saveDeckTitle(deckTitle) {
+    return AsyncStorage.mergeItem(DECKS_STORAGE_KEY, JSON.stringify({
+        [deckTitle]: {
+            title: deckTitle,
+            questions: []
+        }
+    }))
 }
 
-export async function getDecks() {
-    try {
-        const value = await AsyncStorage.getItem(DECKS_STORAGE_KEY);
-        if (value !== null){
-          return JSON.parse(value)
-        }
-      } catch (error) {
-        return console.log(error)
-      }
+export function getDecks() {
+    return AsyncStorage.getItem(DECKS_STORAGE_KEY)
+        .then((results) => {
+            const data = JSON.parse(results)
+            return data
+        })  
 }

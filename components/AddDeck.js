@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { KeyboardAvoidingView, Text, TextInput, StyleSheet, TouchableOpacity, Keyboard, View } from 'react-native'
-import { getDecks, saveDeckTitle } from '../utils/store'
+import { saveDeckTitle } from '../utils/store'
+import { addDeck} from '../actions'
+import { connect } from 'react-redux'
 
 class AddDeck extends Component {
 
@@ -10,7 +12,9 @@ class AddDeck extends Component {
 
     handleSubmit = () => {
         const { deckTitle } = this.state
-        saveDeckTitle(deckTitle)
+        saveDeckTitle(deckTitle).then(() => {
+            this.props.dispatch(addDeck(deckTitle))
+        })
         this.setState({
             deckTitle: ''
         })
@@ -54,4 +58,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default AddDeck
+export default connect()(AddDeck)
