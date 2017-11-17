@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
-import { View, Text, FlatList, StyleSheet } from 'react-native'
+import { View, Text, FlatList, StyleSheet, Platform, TouchableOpacity } from 'react-native'
 import { connect } from 'react-redux'
 import { getDecks } from '../utils/store'
 import { retrieveDecks } from '../actions'
+import DeckDetails from './DeckDetails'
 
 class DesksList extends Component {
 
@@ -31,7 +32,7 @@ class DesksList extends Component {
                 { decks 
                 ? <FlatList
                     data={decks} 
-                    renderItem={({item}) => <ListView {...item}/>}  
+                    renderItem={({item}) => <ListView navigation={this.props.navigation} {...item}/>}  
                     keyExtractor={item => item.title}
                     ItemSeparatorComponent={this.renderSeparator}/>
                 : <Text style={{flex: 1, alignSelf: 'center', textAlign: 'center'}}>You don't have any deck yet.</Text>
@@ -42,13 +43,13 @@ class DesksList extends Component {
     }
 }
 
-const ListView = ({title, questions}) => (
-    <View style={styles.listView}>
+const ListView = ({title, questions, navigation}) => (
+    <TouchableOpacity style={styles.listView} onPress={() => navigation.navigate('DeckDetails', {title: title})}>
         <Text style={{fontSize: 24}}>{title}</Text>
         <Text style={{paddingTop: 8}}>{questions.length} questions</Text>
-    </View>
+    </TouchableOpacity>
 )
-
+  
 const styles = StyleSheet.create({
     container: {
         flexDirection: 'row', 
@@ -65,7 +66,6 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state, props) => {
 
-    console.log(state)
     if (state) {
         const data = Object.keys(state).map( deck => state[deck])
         return {
