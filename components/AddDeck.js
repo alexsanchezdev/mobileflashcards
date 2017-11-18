@@ -12,9 +12,12 @@ class AddDeck extends Component {
 
     handleSubmit = () => {
         const { deckTitle } = this.state
-        saveDeckTitle(deckTitle).then(() => {
-            this.props.dispatch(addDeck(deckTitle))
-        })
+
+        if(deckTitle !== '') {
+            saveDeckTitle(deckTitle).then(() => {
+                this.props.dispatch(addDeck(deckTitle))
+            })
+        }
         this.setState({
             deckTitle: ''
         })
@@ -23,15 +26,16 @@ class AddDeck extends Component {
     render() {
         return (
             <KeyboardAvoidingView behavior='padding' style={styles.container} onTouchStart={Keyboard.dismiss}>
-                <View><Text style={styles.header}>What's the title of the new deck?</Text></View>
+                <View><Text style={styles.header}>What's the title of your new deck?</Text></View>
                 <TextInput 
                     placeholder={`Deck's title`} 
                     style={styles.deckInput} 
                     maxLength={25}
                     onChangeText={(deckTitle) => this.setState({ deckTitle })} 
-                    value={this.state.deckTitle}/>
+                    value={this.state.deckTitle}
+                    selectionColor={'#E91E63'}/>
                 <TouchableOpacity style={styles.submitBtn} onPress={this.handleSubmit}>
-                    <Text style={{fontSize: 20, textAlign: 'center'}}>Submit</Text>
+                    <Text style={{fontSize: 16, textAlign: 'center', color: '#E91E63', fontWeight: 'bold'}}>SUBMIT</Text>
                 </TouchableOpacity>
             </KeyboardAvoidingView>
         )
@@ -42,13 +46,21 @@ const styles = StyleSheet.create({
     deckInput: {
         textAlign: 'center',
         marginTop: 40,
-        fontSize: 24,
+        fontSize: 20,
+        borderBottomWidth: 1,
+        borderColor: '#E91E63',
+        borderRadius: 4,
+        padding: 8,
     },
     submitBtn: {
-        marginTop: 40,
+        marginTop: 20,
+        marginBottom: 40,
+        padding: 16,
+        backgroundColor: '#fff',
+        borderRadius: 8
     },
     header: {
-        fontSize: 36,
+        fontSize: 28,
         textAlign: 'center',
     },
     container: {
