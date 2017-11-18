@@ -5,7 +5,7 @@ import { getDecks } from '../utils/store'
 import { retrieveDecks } from '../actions'
 import DeckDetails from './DeckDetails'
 
-class DesksList extends Component {
+class DecksList extends Component {
 
     componentDidMount() {
         getDecks().then((result) => {
@@ -35,7 +35,7 @@ class DesksList extends Component {
                     renderItem={({item}) => <ListView navigation={this.props.navigation} {...item}/>}  
                     keyExtractor={item => item.title}
                     ItemSeparatorComponent={this.renderSeparator}/>
-                : <Text style={{flex: 1, alignSelf: 'center', textAlign: 'center'}}>You don't have any deck yet.</Text>
+                : <Text style={{flex: 1, alignSelf: 'center', textAlign: 'center'}}>You don't have any decks yet.</Text>
                 }
                 
             </View>    
@@ -44,9 +44,9 @@ class DesksList extends Component {
 }
 
 const ListView = ({title, questions, navigation}) => (
-    <TouchableOpacity style={styles.listView} onPress={() => navigation.navigate('DeckDetails', {title: title})}>
+    <TouchableOpacity style={styles.listView} onPress={() => navigation.navigate('DeckDetails', {title: title, questions: questions})}>
         <Text style={{fontSize: 24}}>{title}</Text>
-        <Text style={{paddingTop: 8}}>{questions.length} questions</Text>
+        <Text style={{paddingTop: 8}}>{questions.length} cards</Text>
     </TouchableOpacity>
 )
   
@@ -77,4 +77,4 @@ const mapStateToProps = (state, props) => {
     }
 }
 
-export default connect(mapStateToProps)(DesksList)
+export default connect(mapStateToProps)(DecksList)
