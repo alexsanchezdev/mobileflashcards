@@ -7,7 +7,8 @@ import { connect } from 'react-redux'
 class AddDeck extends Component {
 
     state = {
-        deckTitle: ''
+        deckTitle: '',
+        borderColor: '#d2d2d2'
     }
 
     handleSubmit = () => {
@@ -25,19 +26,27 @@ class AddDeck extends Component {
 
     render() {
         return (
-            <KeyboardAvoidingView behavior='padding' style={styles.container} onTouchStart={Keyboard.dismiss}>
-                <View><Text style={styles.header}>What's the title of your new deck?</Text></View>
-                <TextInput 
+            <View style={{flex: 1, padding: 40}}>
+                <KeyboardAvoidingView behavior='padding' style={{flex: 1, justifyContent: 'center'}} onTouchStart={Keyboard.dismiss}>
+                    <View><Text style={styles.header}>What's the title of your new deck?</Text></View>
+                    <TextInput 
                     placeholder={`Deck's title`} 
-                    style={styles.deckInput} 
+                    style={[styles.deckInput,{borderColor: `${this.state.borderColor}`}]} 
                     maxLength={25}
+                    onFocus={() => this.setState({ borderColor: '#E91E63'})}
+                    onBlur={() => this.setState({ borderColor: '#d2d2d2'})}
                     onChangeText={(deckTitle) => this.setState({ deckTitle })} 
                     value={this.state.deckTitle}
-                    selectionColor={'#E91E63'}/>
-                <TouchableOpacity style={styles.submitBtn} onPress={this.handleSubmit}>
-                    <Text style={{fontSize: 16, textAlign: 'center', color: '#E91E63', fontWeight: 'bold'}}>SUBMIT</Text>
-                </TouchableOpacity>
-            </KeyboardAvoidingView>
+                    selectionColor={'#E91E63'}
+                    autoCorrect={false}/>
+                </KeyboardAvoidingView>
+                <View>
+                    <TouchableOpacity style={styles.submitBtn} onPress={this.handleSubmit}>
+                        <Text style={{fontSize: 16, textAlign: 'center', color: '#fff', fontWeight: 'bold'}}>SUBMIT</Text>
+                    </TouchableOpacity>
+                </View>
+                
+            </View>
         )
     }
 }
@@ -48,26 +57,18 @@ const styles = StyleSheet.create({
         marginTop: 40,
         fontSize: 20,
         borderBottomWidth: 1,
-        borderColor: '#E91E63',
         borderRadius: 4,
         padding: 8,
     },
     submitBtn: {
-        marginTop: 20,
-        marginBottom: 40,
         padding: 16,
-        backgroundColor: '#fff',
+        backgroundColor: '#E91E63',
         borderRadius: 8
     },
     header: {
         fontSize: 28,
         textAlign: 'center',
     },
-    container: {
-        flex: 1,
-        padding: 40,
-        justifyContent: 'center'
-    }
 })
 
 export default connect()(AddDeck)
