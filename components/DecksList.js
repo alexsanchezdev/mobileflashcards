@@ -44,7 +44,7 @@ class DecksList extends Component {
 }
 
 const ListView = ({title, questions, navigation}) => (
-    <TouchableOpacity style={styles.listView} onPress={() => navigation.navigate('DeckDetails', {title: title, questions: questions})}>
+    <TouchableOpacity style={styles.listView} onPress={() => navigation.navigate('DeckDetails', {title: title})}>
         <Text style={{fontSize: 24}}>{title}</Text>
         <Text style={{paddingTop: 8}}>{questions.length} cards</Text>
     </TouchableOpacity>

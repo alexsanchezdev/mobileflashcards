@@ -17,13 +17,14 @@ class AddDeck extends Component {
         if(deckTitle !== '') {
             saveDeckTitle(deckTitle).then(() => {
                 this.props.dispatch(addDeck(deckTitle))
+                this.setState({
+                    deckTitle: ''
+                })
+                Alert.alert('Complete', 'Deck correctly saved.')
             })
+        } else {
+            Alert.alert('Error', 'All fields are required.')
         }
-        this.setState({
-            deckTitle: ''
-        })
-
-        Alert.alert('Complete', 'Deck correctly saved.')
     }
 
     render() {
