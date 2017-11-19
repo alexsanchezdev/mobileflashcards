@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { KeyboardAvoidingView, Text, TextInput, StyleSheet, TouchableOpacity, Keyboard, View } from 'react-native'
+import { KeyboardAvoidingView, Text, TextInput, StyleSheet, TouchableOpacity, Keyboard, View, Alert } from 'react-native'
 import { saveDeckTitle } from '../utils/store'
 import { addDeck} from '../actions'
 import { connect } from 'react-redux'
@@ -22,12 +22,14 @@ class AddDeck extends Component {
         this.setState({
             deckTitle: ''
         })
+
+        Alert.alert('Complete', 'Deck correctly saved.')
     }
 
     render() {
         return (
-            <View style={{flex: 1, padding: 40}}>
-                <KeyboardAvoidingView behavior='padding' style={{flex: 1, justifyContent: 'center'}} onTouchStart={Keyboard.dismiss}>
+            <View style={{flex: 1, padding: 40}} onTouchStart={Keyboard.dismiss}>
+                <KeyboardAvoidingView behavior='position' style={{flex: 1, justifyContent: 'center'}}>
                     <View><Text style={styles.header}>What's the title of your new deck?</Text></View>
                     <TextInput 
                     placeholder={`Deck's title`} 
@@ -42,10 +44,9 @@ class AddDeck extends Component {
                 </KeyboardAvoidingView>
                 <View>
                     <TouchableOpacity style={styles.submitBtn} onPress={this.handleSubmit}>
-                        <Text style={{fontSize: 16, textAlign: 'center', color: '#fff', fontWeight: 'bold'}}>SUBMIT</Text>
+                        <Text style={{fontSize: 16, textAlign: 'center', color: '#fff', fontWeight: 'bold'}}>SAVE DECK</Text>
                     </TouchableOpacity>
                 </View>
-                
             </View>
         )
     }
