@@ -6,6 +6,7 @@ import AddDeck from '../components/AddDeck'
 import DecksList from '../components/DecksList'
 import DeckDetails from '../components/DeckDetails'
 import AddCard from '../components/AddCard'
+import DeckQuiz from '../components/DeckQuiz'
 import { Ionicons } from '@expo/vector-icons'
 
 export const Tabs = TabNavigator({
@@ -47,13 +48,41 @@ export const Tabs = TabNavigator({
 export const DetailsStack = StackNavigator({
     DeckDetails: {
         screen: DeckDetails,
+        navigationOptions: ({navigation}) => ({
+          title: `${navigation.state.params.title}'s deck`,
+          headerStyle: {
+            height: Platform.OS === 'ios' && 28,
+            paddingTop: Platform.OS === 'ios' && -Constants.statusBarHeight,
+            backgroundColor: '#E91E63',
+          },
+          headerTintColor: '#fff',
+        }),
     },
     AddCard: {
-        screen: AddCard
+        screen: AddCard,
+        navigationOptions: {
+          title: `Add card`,
+          headerStyle: {
+            height: Platform.OS === 'ios' && 28,
+            paddingTop: Platform.OS === 'ios' && -Constants.statusBarHeight,
+            backgroundColor: '#E91E63',
+          },
+          headerTintColor: '#fff',
+        },
+    },
+    DeckQuiz: {
+      screen: DeckQuiz,
+      navigationOptions: ({navigation}) => ({
+        title: `Quiz`,
+        headerStyle: {
+          height: Platform.OS === 'ios' && 28,
+          paddingTop: Platform.OS === 'ios' && -Constants.statusBarHeight,
+          backgroundColor: '#E91E63',
+        },
+        headerTintColor: '#fff',
+      }),
     }
-}, {
-    headerMode: 'none'
-})
+}, { headerMode: 'none'})
 export const MainNavigator = StackNavigator({
     Home: {
       screen: Tabs,
@@ -63,15 +92,6 @@ export const MainNavigator = StackNavigator({
     },
     DeckDetails: {
       screen: DetailsStack,
-      navigationOptions: ({navigation}) => ({
-        title: `${navigation.state.params.title}'s deck`,
-        headerStyle: {
-          height: Platform.OS === 'ios' && 28,
-          paddingTop: Platform.OS === 'ios' && -Constants.statusBarHeight,
-          backgroundColor: '#E91E63',
-        },
-        headerTintColor: '#fff',
-      }),
     }
   }, {
       headerMode: 'float'

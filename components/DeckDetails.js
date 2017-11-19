@@ -17,10 +17,10 @@ class DeckDetails extends Component {
                     <Text style={{paddingTop: 8, fontSize: 18, textAlign: 'center'}}>{questions.length} cards</Text>
                 </View>
                 <View>
-                    <TouchableOpacity style={styles.addCard}>
+                    <TouchableOpacity style={styles.addCard} onPress={() => navigation.navigate('AddCard')}>
                         <Text style={{fontSize: 16, textAlign: 'center', color: '#E91E63', fontWeight: 'bold'}}>ADD CARD</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.startQuiz}>
+                    <TouchableOpacity style={styles.startQuiz} onPress={() => navigation.navigate('DeckQuiz', {title: title})}>
                         <Text style={{fontSize: 16, textAlign: 'center', color: '#FFF', fontWeight: 'bold'}}>START QUIZ</Text>
                     </TouchableOpacity>
                 </View>
