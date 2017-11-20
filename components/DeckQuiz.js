@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Text, View, TouchableOpacity, StyleSheet } from 'react-native'
+import { NavigationActions } from 'react-navigation'
 
 class DeckQuiz extends Component {
 
@@ -69,8 +70,11 @@ class DeckQuiz extends Component {
                 { isShowingResult
                 ? <View style={styles.container}>
                     <Text style={[styles.main, {flex: 1, textAlign: 'center'}]}>{this.calculateResult()}</Text>
-                    <TouchableOpacity style={styles.submitBtn} onPress={() => this.setState({ activeScreen: 0, isShowingAnswer: false, isShowingResult: false})}>
-                        <Text style={{fontSize: 16, textAlign: 'center', color: '#fff', fontWeight: 'bold'}}>START OVER</Text>
+                    <TouchableOpacity style={[styles.submitBtn, {backgroundColor: '#fff', marginBottom: 20}]} onPress={() => this.setState({ activeScreen: 0, isShowingAnswer: false, isShowingResult: false})}>
+                        <Text style={{fontSize: 16, textAlign: 'center', color: '#E91E63', fontWeight: 'bold'}}>RESTART QUIZ</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.submitBtn} onPress={() => this.props.navigation.dispatch(NavigationActions.back())}>
+                        <Text style={{fontSize: 16, textAlign: 'center', color: '#fff', fontWeight: 'bold'}}>BACK TO DECK</Text>
                     </TouchableOpacity>
                 </View>
                 : isShowingAnswer 
@@ -81,10 +85,10 @@ class DeckQuiz extends Component {
                         </View>
                         <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
                             <TouchableOpacity style={[styles.submitBtn, {flex: 1, marginRight: 8}]} onPress={() => this.handleNextQuestion(false)}>
-                                <Text style={{fontSize: 16, textAlign: 'center', color: '#fff', fontWeight: 'bold'}}>X</Text>
+                                <Text style={{fontSize: 16, textAlign: 'center', color: '#FFF', fontWeight: 'bold'}}>INCORRECT</Text>
                             </TouchableOpacity>
                             <TouchableOpacity style={[styles.submitBtn, {flex: 1, marginLeft: 8}]} onPress={() => this.handleNextQuestion(true)}>
-                                <Text style={{fontSize: 16, textAlign: 'center', color: '#fff', fontWeight: 'bold'}}>V</Text>
+                                <Text style={{fontSize: 16, textAlign: 'center', color: '#FFF', fontWeight: 'bold'}}>CORRECT</Text>
                             </TouchableOpacity>
                         </View>   
                     </View>
