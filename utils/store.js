@@ -18,6 +18,14 @@ export function getDecks() {
         })  
 }
 
+export function getDeck(title) {
+    return AsyncStorage.getItem(DECKS_STORAGE_KEY)
+        .then((results) => {
+            const data = JSON.parse(results)
+            return data[title]
+        })
+}
+
 export function addCardToDeck(deckTitle, card) {
     return AsyncStorage.getItem(DECKS_STORAGE_KEY)
         .then((results) => {
