@@ -11,7 +11,7 @@ class DeckDetails extends Component {
             <View style={{flex: 1, padding: 40}}>
                 <View style={{flex: 1, justifyContent: 'center'}}>
                     <Text style={{fontSize: 32, textAlign: 'center'}}>{title}</Text>
-                    <Text style={{paddingTop: 8, fontSize: 18, textAlign: 'center'}}>{decks[title].questions.length} cards</Text>
+                    <Text style={{paddingTop: 8, fontSize: 18, textAlign: 'center', color: 'gray'}}>{decks[title].questions.length} cards</Text>
                 </View>
                 <View>
                     <TouchableOpacity style={styles.addCard} onPress={() => navigation.navigate('AddCard', {title: title})}>
