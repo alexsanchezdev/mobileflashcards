@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Text, View, TouchableOpacity, StyleSheet } from 'react-native'
 import { NavigationActions } from 'react-navigation'
+import { clearLocalNotification, setLocalNotification } from '../utils/helpers'
 
 class DeckQuiz extends Component {
 
@@ -9,6 +10,16 @@ class DeckQuiz extends Component {
         activeScreen: 0,
         isShowingAnswer: false,
         isShowingResult: false
+    }
+
+    componentDidMount() {
+        const { questions } = this.props.navigation.state.params
+        const array = questions.map(() => undefined)
+        this.setState({
+            data: array
+        })
+        clearLocalNotification()
+            .then(setLocalNotification())
     }
 
     handleNextQuestion(result) {
@@ -51,14 +62,6 @@ class DeckQuiz extends Component {
             return `You got ${correctAnswer.length} questions correct from a total of ${data.length} questions.`
         }
         
-    }
-
-    componentDidMount() {
-        const { questions } = this.props.navigation.state.params
-        const array = questions.map(() => undefined)
-        this.setState({
-            data: array
-        })
     }
 
     render() {

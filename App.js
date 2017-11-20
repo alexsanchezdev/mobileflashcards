@@ -5,6 +5,7 @@ import { Constants } from 'expo'
 import { createStore } from 'redux'
 import { Provider } from 'react-redux'
 import reducer from './reducers'
+import { setLocalNotification } from './utils/helpers'
 
 
 const FlashStatusBar = ({backgroundColor, ...props}) => {
@@ -16,6 +17,11 @@ const FlashStatusBar = ({backgroundColor, ...props}) => {
 }
 
 export default class App extends React.Component {
+
+  componentDidMount() {
+    setLocalNotification()
+  }
+
   render() {
     return (
       <Provider store={createStore(reducer)}>
