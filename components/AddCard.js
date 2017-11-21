@@ -3,6 +3,7 @@ import { View, Text, TextInput, TouchableOpacity, StyleSheet, KeyboardAvoidingVi
 import { addCardToDeck } from '../utils/store'
 import { saveCard } from '../actions'
 import { connect } from 'react-redux'
+import { NavigationActions } from 'react-navigation'
 
 class AddCard extends Component {
     
@@ -24,7 +25,7 @@ class AddCard extends Component {
                     question: '',
                     answer: ''
                 })
-                Alert.alert('Complete', 'Card correctly saved.')
+                this.props.navigation.dispatch(NavigationActions.back())
             })
         } else {
             Alert.alert('Error', 'All fields are required.')

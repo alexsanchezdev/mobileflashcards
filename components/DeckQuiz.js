@@ -108,13 +108,6 @@ class DeckQuiz extends Component {
             </View>
         )
 
-        // Mostrar pregunta
-        // Mostrat boton 'SHOW ANSWER'
-        // Ocultar pregunta
-        // Mostrar respuesta
-        // Ocultar boton 'SHOW_ANSWER'
-        // Mostrar botones 'CORRECT' e 'INCORRECT'
-
     }
 
 }
