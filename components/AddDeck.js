@@ -20,7 +20,7 @@ class AddDeck extends Component {
                 this.setState({
                     deckTitle: ''
                 })
-                Alert.alert('Complete', 'Deck correctly saved.')
+                this.props.navigation.navigate('DeckDetails', {title: deckTitle})
             })
         } else {
             Alert.alert('Error', 'All fields are required.')
