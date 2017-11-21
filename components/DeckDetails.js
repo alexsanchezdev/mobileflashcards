@@ -1,8 +1,18 @@
 import React, { Component } from 'react'
-import { Text, TextInput, View, StyleSheet, TouchableOpacity} from 'react-native'
+import { Text, TextInput, View, StyleSheet, TouchableOpacity, Alert } from 'react-native'
 import { connect } from 'react-redux'
 
 class DeckDetails extends Component {
+
+    startQuiz(title) {
+        const { decks } = this.props
+
+        if (decks[title].questions.length > 0) {
+            this.props.navigation.navigate('DeckQuiz', {title: title, questions: decks[title].questions})
+        } else {
+            Alert.alert('Error', 'There are no questions in this deck. Please, add some question before taking the quiz.')
+        }
+    }
 
     render() {
         const { navigation, decks } = this.props
@@ -17,7 +27,7 @@ class DeckDetails extends Component {
                     <TouchableOpacity style={styles.addCard} onPress={() => navigation.navigate('AddCard', {title: title})}>
                         <Text style={{fontSize: 16, textAlign: 'center', color: '#E91E63', fontWeight: 'bold'}}>ADD CARD</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.startQuiz} onPress={() => navigation.navigate('DeckQuiz', {title: title, questions: decks[title].questions})}>
+                    <TouchableOpacity style={styles.startQuiz} onPress={() => this.startQuiz(title)}>
                         <Text style={{fontSize: 16, textAlign: 'center', color: '#FFF', fontWeight: 'bold'}}>START QUIZ</Text>
                     </TouchableOpacity>
                 </View>  
