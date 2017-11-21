@@ -1,4 +1,4 @@
-The following project was created following iOS as the main platform. Android version could work but design maybe won't be as expected.
+The following project was created following iOS as the main platform. Android version design could be not displayed as expected.
 
 INSTALLATION
 
